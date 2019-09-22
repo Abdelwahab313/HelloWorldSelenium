@@ -9,6 +9,10 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.util.Properties;
+
 import static org.junit.Assert.assertTrue;
 
 public class VodafoneTest {
@@ -17,8 +21,14 @@ public class VodafoneTest {
 
     @Before
     public void setup() {
-        System.setProperty(
-                "webdriver.chrome.driver", "webdriver/chromedriver");
+        Properties props = System.getProperties();
+        try {
+            props.load(new FileInputStream(new File("src/main//resources/test.properties")));
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            System.exit(-1);
+        }
         driver = new ChromeDriver();
     }
 
